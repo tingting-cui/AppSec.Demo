@@ -1,0 +1,82 @@
+﻿@using MoveShareApplication.Authorization
+@using Microsoft.AspNetCore.Authorization
+@using MoveShareApplication.Models
+
+
+@inject IAuthorizationService AuthorizationService
+
+@model IEnumerable<Item>
+@{
+    ViewData["Title"] = "Items available";
+}
+
+<partial name="_Warning" />
+
+<div class="row" style="padding: 12px 0% 0% 0%">
+    <div class="col-md-6">
+       <h1 class="text-primary">Available  Items  List</h1>
+    </div>
+    <div class="col-md-6 text-end">
+        <a asp-controller="MoveShare" asp-action="Create" class="btn btn-info">
+            To Share
+        </a>
+    </div>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Reserve_for_pic</th>
+            <th scope="col">Available Amount</th>
+            <th scope="col">Location</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var obj in Model)
+        {
+            <tr>
+                <td>
+                    @obj.Name
+                </td>
+                <td>
+                    @obj.Description
+                </td>
+                <td>
+                    <p>reserve for pic</p>
+                </td>
+                <td>
+                    @obj.Quantity
+                </td>
+                <td>
+                    @obj.Location
+                </td>
+                <td>
+                <div style="float: right">
+                        @if ((await AuthorizationService.AuthorizeAsync(User, obj, MoveShareItemOperation.Edit)).Succeeded)
+                        {
+                            <a asp-controller="MoveShare" asp-action="Edit" asp-route-id="@obj.Item_id" class="btn btn-outline-warning">
+                                Edit
+                            </a>
+                            <a asp-controller="MoveShare" asp-action="Delete" asp-route-id="@obj.Item_id" class="btn btn-outline-danger">
+                                Delete
+                            </a>
+                        }
+                        <a asp-controller="MoveShare" asp-action="Order" asp-route-id="@obj.Item_id" class="btn btn-outline-success">
+                            Order
+                        </a>
+                    
+                        
+
+                </div>  
+                
+            </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

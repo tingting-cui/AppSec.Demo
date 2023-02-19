@@ -1,0 +1,49 @@
+﻿@model Item
+@{
+    ViewData["Title"] = "Create Item";
+}
+
+<partial name="_Warning" />
+
+<form method="post" asp-action="Create">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Create Item to Share</h2>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control"/>
+            <span asp-validation-for="Name" class="text-bg-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description"></label>
+            <input asp-for="Description" class="form-control"/>
+            <span asp-validation-for="Description" class="text-bg-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Quantity"></label>
+            <input asp-for="Quantity" class="form-control"/>
+            <span asp-validation-for="Quantity" class="text-bg-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="PickUpNote"></label>
+            <input asp-for="PickUpNote" class="form-control"/>
+            <span asp-validation-for="PickUpNote" class="text-bg-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Location"></label>
+            <input asp-for="Location" class="form-control"/>
+            <span asp-validation-for="Location" class="text-bg-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-info" style="width:150px">Create</button>
+        <a asp-controller="MoveShare" asp-action="Index" class="btn btn-outline-dark" style="width:150px">Back to List</a>
+    </div>
+
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    } 
+}
